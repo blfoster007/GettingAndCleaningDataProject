@@ -103,7 +103,7 @@ Cleanup of Resulting Column Names
 =================================
 
 Column names were cleaned/transformed with the following logic:
-1. "()" and "-" were replaced with blanks ("")
+1. "()", "-", and "," were replaced with blanks ("")
 2. "std" was replaced with "Std"
 3. "mean" was replaced with "Mean"
 

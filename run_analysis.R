@@ -26,7 +26,7 @@ colnames(XY_test)[1] <- "OrigRowIndex"
 colnames(XY_test)[2] <- "ActivityNumber"
 
 #Filter dataset to only columns of interest
-XY_test <- XY_test[,grep("^OrigRowIndex$|^ActivityNumber$|mean|std",colnames(XY_test))]
+XY_test <- XY_test[,grep("^OrigRowIndex$|^ActivityNumber$|[Mm]ean|[Ss]td",colnames(XY_test))]
 
 #Reorder data by original index and reset row names/numbers
 #This is necessary since following joins occur by row number and previous
@@ -72,7 +72,7 @@ colnames(XY_train)[1] <- "OrigRowIndex"
 colnames(XY_train)[2] <- "ActivityNumber"
 
 #Filter dataset to only columns of interest
-XY_train <- XY_train[,grep("^OrigRowIndex$|^ActivityNumber$|mean|std",colnames(XY_train))]
+XY_train <- XY_train[,grep("^OrigRowIndex$|^ActivityNumber$|[Mm]ean|[Ss]td",colnames(XY_train))]
 
 #Reorder data by original index and reset row names/numbers
 #This is necessary since following joins occur by row number and previous
@@ -116,15 +116,13 @@ colnames(XY_total)[2] <- "Activity"
 #Delete column in dataset that is no longer necessary
 XY_total$V1 <- NULL
 
-MyTidyDataSet <- aggregate(XY_total[,3:81],by=list(Activty=XY_total$Activity,Subject=XY_total$Subject),mean)
-
-head(XY_total,n=1L)
+MyTidyDataSet <- aggregate(XY_total[,3:88],by=list(Activty=XY_total$Activity,Subject=XY_total$Subject),mean)
 
 #Release memory for storage variables
 XY_total <- NULL
 
 #Make the column names easier to work with
-names(MyTidyDataSet) <- gsub("\\(\\)|-","",names(MyTidyDataSet))
+names(MyTidyDataSet) <- gsub("\\(\\)|-|,","",names(MyTidyDataSet))
 names(MyTidyDataSet) <- gsub("std","Std",names(MyTidyDataSet))
 names(MyTidyDataSet) <- gsub("mean","Mean",names(MyTidyDataSet))
 
